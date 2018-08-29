@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using Newtonsoft.Json.Serialization;
+using System.Web.Http;
 
 namespace WebApi.Api
 {
@@ -13,6 +14,10 @@ namespace WebApi.Api
             var formatters = config.Formatters;
             formatters.Remove(formatters.XmlFormatter);
 
+            //Modificar serialização= formatar propriedades do json para o padrão
+            var jsonSettings = formatters.JsonFormatter.SerializerSettings;
+            jsonSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+            jsonSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 
             // Web API routes
             config.MapHttpAttributeRoutes();
