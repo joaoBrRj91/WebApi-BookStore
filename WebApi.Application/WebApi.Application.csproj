@@ -40,20 +40,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\WebApi.Data\WebApi.Data.csproj">
-      <Project>{e8047783-add0-4b53-96d9-b87c572e7fae}</Project>
-      <Name>WebApi.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebApi.Domain\WebApi.Domain.csproj">
-      <Project>{984c2b67-f3a4-4362-aa28-a319859e01d3}</Project>
-      <Name>WebApi.Domain</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\WebApi.Utils\WebApi.Utils.csproj">
-      <Project>{bca07bc7-3d04-420a-b47b-fe64219899d4}</Project>
-      <Name>WebApi.Utils</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Models\" />
     <Folder Include="ViewModels\" />
   </ItemGroup>
