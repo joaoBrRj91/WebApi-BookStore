@@ -18,7 +18,7 @@ namespace WebApi.Domain.Contracts
 {
     public interface IRepository<T> : IDisposable
     {
-        List<T> Get(int Skip = 0, int take = 25);
+        IEnumerable<T> Get(int Skip = 0, int take = 25);
         T Get(int id);
         void Create(T entity);
         void Update(T entity);

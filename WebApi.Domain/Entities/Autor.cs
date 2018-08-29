@@ -7,6 +7,6 @@ namespace WebApi.Domain.Entities
         public int Id { get; set; }
         public string PrimeiroNome { get; set; }
         public string  SobreNome { get; set; }
-        public ICollection<Livro> Livros { get; set; }
+        public  ICollection<Livro> Livros { get; set; }
     }
 }

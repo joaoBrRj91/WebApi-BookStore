@@ -6,7 +6,7 @@ namespace WebApi.Domain.Contracts
 {
     public interface ILivroRepository : IRepository<Livro>
     {
-        IEnumerable<Autor> ObterLivrosComAutores(int skip, int take = 25);
+        IEnumerable<Livro> ObterLivrosComAutores(int skip, int take = 25);
         Livro ObterLivroComAutores(int livroId);
     }
 }

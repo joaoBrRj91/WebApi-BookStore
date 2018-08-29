@@ -9,6 +9,6 @@ namespace WebApi.Domain.Entities
         public string Titulo{ get; set; }
         public decimal Preco { get; set; }
         public DateTime DataLancamento { get; set; }
-        public ICollection<Autor> Autores { get; set; }
+        public  ICollection<Autor> Autores { get; set; }
     }
 }
