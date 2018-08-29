@@ -6,7 +6,7 @@ namespace WebApi.Data.DataContexts
 {
     public class BookStoreDataContext : DbContext
     {
-        public BookStoreDataContext() : base("bookStoreConnectionString")
+        public BookStoreDataContext() : base("BookStoreConnectionString")
         {
             Configuration.LazyLoadingEnabled = false;
             Configuration.ProxyCreationEnabled = false;
