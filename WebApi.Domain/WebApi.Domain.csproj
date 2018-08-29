@@ -39,9 +39,15 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Autor.cs" />
-    <Compile Include="Livro.cs" />
+    <Compile Include="Contracts\IAutorRepository.cs" />
+    <Compile Include="Contracts\ILivroRepository.cs" />
+    <Compile Include="Entities\Autor.cs" />
+    <Compile Include="Contracts\IRepository.cs" />
+    <Compile Include="Entities\Livro.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Repositories\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

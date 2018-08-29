@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace WebApi.Domain
+namespace WebApi.Domain.Entities
 {
     public class Livro
     {
