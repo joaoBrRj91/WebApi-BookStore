@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{984C2B67-F3A4-4362-AA28-A319859E01D3}</ProjectGuid>
+    <ProjectGuid>{E8047783-ADD0-4B53-96D9-B87C572E7FAE}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WebApi.Domain</RootNamespace>
-    <AssemblyName>WebApi.Domain</AssemblyName>
+    <RootNamespace>WebApi.Data</RootNamespace>
+    <AssemblyName>WebApi.Data</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -33,18 +33,14 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contracts\IAutorRepository.cs" />
-    <Compile Include="Contracts\ILivroRepository.cs" />
-    <Compile Include="Entities\Autor.cs" />
-    <Compile Include="Contracts\IRepository.cs" />
-    <Compile Include="Entities\Livro.cs" />
+    <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Repositories\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
