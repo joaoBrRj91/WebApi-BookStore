@@ -10,5 +10,16 @@ namespace WebApi.Domain.Entities
         public decimal Preco { get; set; }
         public DateTime DataLancamento { get; set; }
         public  ICollection<Autor> Autores { get; set; }
+
+
+        public void ValidarDataLancamento()
+        {
+
+        }
+
+        public void VerificarSeTituloEhUnico()
+        {
+
+        }
     }
 }

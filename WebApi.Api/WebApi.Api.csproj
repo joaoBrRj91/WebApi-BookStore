@@ -100,6 +100,12 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebApi.Application\WebApi.Application.csproj">
+      <Project>{bbb5c051-9935-4232-9624-28b8b5b7c35d}</Project>
+      <Name>WebApi.Application</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
