@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebApi.Data
+namespace BookStore.Domain.Contract
 {
-    public class Class1
+   public interface IAuthorRepository : IRepository<Author>
     {
     }
 }
