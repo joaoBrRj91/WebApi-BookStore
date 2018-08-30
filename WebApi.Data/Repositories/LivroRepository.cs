@@ -12,9 +12,9 @@ namespace WebApi.Data.Repositories
         private readonly BookStoreDataContext _context;
 
 
-        public LivroRepository()
+        public LivroRepository(BookStoreDataContext context)
         {
-            _context = new BookStoreDataContext();
+            _context = context;
         } 
 
         public IEnumerable<Livro> Get(int Skip = 0, int take = 25)

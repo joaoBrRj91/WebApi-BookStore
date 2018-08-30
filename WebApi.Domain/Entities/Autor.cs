@@ -12,9 +12,7 @@ namespace WebApi.Domain.Entities
         #endregion
 
 
-        private int _quantidadeLivrosAutor;
-
-
+      
         //TODO: Validar com o service é usar um container DI para injetar a interface do service
         public void ValidarNomeDoAutor()
         {
@@ -25,5 +23,10 @@ namespace WebApi.Domain.Entities
         {
 
         }
+
+        public string ObterNomeCompletoDoAutor() => string.Format("{0} {1}", PrimeiroNome, SobreNome);
+
+           
+       
     }
 }

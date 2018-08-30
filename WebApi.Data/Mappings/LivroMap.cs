@@ -18,7 +18,7 @@ namespace WebApi.Data.Mappings
 
             Property(p => p.Preco)
                 .IsRequired()
-                .HasColumnType("preco");
+                .HasColumnType("decimal");
 
             Property(p => p.DataLancamento)
                 .IsRequired();

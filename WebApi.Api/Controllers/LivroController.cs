@@ -21,16 +21,26 @@ using System;
      */
 namespace WebApi.Api.Controllers
 {
+
+    /// <summary>
+    /// api significa que só será retornado dados
+    /// public significa que a api pode ser acessada fora da intranet;logo
+    /// deve haver uma autenticação para consumir
+    /// v1 versão da api
+    /// </summary>
+    [RoutePrefix("api/public/v1")]
     public class LivroController : ApiController
     {
 
         private ILivroRepository _repository;
+
 
         public LivroController(ILivroRepository repository)
         {
             _repository = repository;
         }
 
+        [Route("livros")]
         public HttpResponseMessage Get()
         {
             HttpResponseMessage response;
