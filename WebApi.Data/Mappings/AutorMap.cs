@@ -10,7 +10,7 @@ namespace WebApi.Data.Mappings
 
         public AutorMap()
         {
-            ToTable("Author");
+            ToTable("autores");
 
             HasKey(i => i.Id);
 

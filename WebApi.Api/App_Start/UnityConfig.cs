@@ -1,5 +1,4 @@
 using System.Web.Http;
-using System.Web.Mvc;
 using Unity;
 using Unity.Lifetime;
 using Unity.WebApi;
