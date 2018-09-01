@@ -22,12 +22,6 @@ namespace WebApi.Domain.Entities
 
         }
 
-        public void FormatarPreco()
-        {
-
-        }
-
-        public string FormatarData() => string.Format("{0:dd/MM/yyyy}", DataLancamento);
         
     }
 }

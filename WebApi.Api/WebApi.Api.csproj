@@ -185,6 +185,10 @@
       <Project>{984C2B67-F3A4-4362-AA28-A319859E01D3}</Project>
       <Name>WebApi.Domain</Name>
     </ProjectReference>
+    <ProjectReference Include="..\WebApi.Utils\WebApi.Utils.csproj">
+      <Project>{BCA07BC7-3D04-420A-B47B-FE64219899D4}</Project>
+      <Name>WebApi.Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System;
+using BookStore.Utils.Attributes;
 
 
 /*TODO: Refatorar,pois a camada de apresentação
@@ -27,6 +28,7 @@ namespace WebApi.Api.Controllers
     /// public significa que a api pode ser acessada fora da intranet;logo
     /// deve haver uma autenticação para consumir
     /// v1 versão da api
+    /// public espera receber uma autenticação
     /// </summary>
     [RoutePrefix("api/public/v1")]
     public class LivroController : ApiController
@@ -40,7 +42,10 @@ namespace WebApi.Api.Controllers
             _repository = repository;
         }
 
+       
         [Route("livros")]
+        [HttpGet]
+        [DeflateCompression]
         public HttpResponseMessage Get()
         {
             HttpResponseMessage response;
