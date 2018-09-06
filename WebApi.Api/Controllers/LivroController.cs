@@ -46,13 +46,19 @@ namespace WebApi.Api.Controllers
             _repository = repository;
         }
 
-       
+
         //O cache no lado do cliente fica no disco( "disco" da maquina fisica da requsição)
         //O cache no lado do servidor fica armazenada no servidor/maquina fisca onde está a aplicação
+        /*O task permite que as requisições possam ser tratadas de forma assincrona pelo IIS. 
+         * No nosso caso teriamos duas threads uma para o processo principal e uma para a chamada
+         ao banco(_repository.ObterLivrosComAutores()); caso tenhamos uma terceira requsição(origina uma nova thread) e
+         nao tenha onde ser alocada;caso a trhead mais interna, a da requisição do banco, ainda não tenha sido processada
+         o iss irá alocar sua thread para o processamento dessa terceira requisição(Essa alocação pode acontecer mesmo
+         havendo treads disponiveis no IIS==== O iis só disponibiliza no máximo 8 theads simultaneas)*/
         [Route("livros")]
         [HttpGet]
         [DeflateCompression]
-        [CacheOutput(ClientTimeSpan =100,ServerTimeSpan =100)]
+      //  [CacheOutput(ClientTimeSpan = 100, ServerTimeSpan = 100)]
         public async Task<HttpResponseMessage> Get()
         {
             HttpResponseMessage response;
@@ -61,11 +67,11 @@ namespace WebApi.Api.Controllers
             {
                 try
                 {
-                    var obterLivrosAsync =  Task.Run(() => _repository.ObterLivrosComAutores());
+                    var obterLivrosAsync = Task.Run(() => _repository.ObterLivrosComAutores());
 
-                    var livros =  await obterLivrosAsync;
+                    var livros = await obterLivrosAsync;
 
-                    if (livros != null &&  livros.Count() > 0)
+                    if (livros != null && livros.Count() > 0)
                         response = Request.CreateResponse(HttpStatusCode.OK, livros);
                     else
                         response = Request.CreateResponse(HttpStatusCode.NoContent, "nenhum registro encontrado");
@@ -79,84 +85,95 @@ namespace WebApi.Api.Controllers
                     mensagem.AppendLine(ex.Message);
                     response = Request.CreateResponse(HttpStatusCode.InternalServerError, mensagem.ToString());
                 }
+
+                return response;
             }
 
-            return response;
         }
 
         [HttpPost]
         [Route("livros")]
         public async Task<HttpResponseMessage> Post(Livro livro)
         {
-            HttpResponseMessage response = new HttpResponseMessage();
+            HttpResponseMessage response;
 
-            try
+            using (response = new HttpResponseMessage())
             {
-                var criarLivrosAsync = Task.Run(() =>  _repository.Create(livro));
-                response = Request.CreateResponse(HttpStatusCode.Created, livro);
-                await criarLivrosAsync;
-            }
-            catch
-            {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest, "fallha ao criar o livro");
-                throw;
+                try
+                {
+                    var criarLivrosAsync = Task.Run(() => _repository.Create(livro));
+                    response = Request.CreateResponse(HttpStatusCode.Created, livro);
+                    await criarLivrosAsync;
+                }
+                catch
+                {
+                    response = Request.CreateResponse(HttpStatusCode.BadRequest, "fallha ao criar o livro");
+                    throw;
+                }
+
+                return response;
+
             }
 
-            return response;
         }
-
 
 
         [HttpPut]
         [Route("livros")]
         public async Task<HttpResponseMessage> Put(Livro livro)
         {
-            HttpResponseMessage response = new HttpResponseMessage();
+            HttpResponseMessage response;
 
-            try
+            using (response = new HttpResponseMessage())
             {
-                 var atualizarLivroAsync = Task.Run(() => _repository.Update(livro));
-                response = Request.CreateResponse(HttpStatusCode.OK, livro);
-                await atualizarLivroAsync;
-            }
-            catch (Exception)
-            {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest, "Falha ao Atualizar o livro");
-                throw;
-            }
+                try
+                {
+                    var atualizarLivroAsync = Task.Run(() => _repository.Update(livro));
+                    response = Request.CreateResponse(HttpStatusCode.OK, livro);
+                    await atualizarLivroAsync;
+                }
+                catch (Exception)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.BadRequest, "Falha ao Atualizar o livro");
+                    throw;
+                }
 
-            return response;
+                return response;
+
+            }
         }
 
-      
 
         [HttpDelete]
         [Route("livros/{id}")]
         public async Task<HttpResponseMessage> Delete(int id)
         {
-            HttpResponseMessage response = new HttpResponseMessage();
+            HttpResponseMessage response;
 
-            try
+            using (response = new HttpResponseMessage())
             {
-                var  deletarLivroAsync = Task.Run(() => _repository.Delete(id));
-                response = Request.CreateResponse(HttpStatusCode.OK, "Livro removido com sucesso");
-                await deletarLivroAsync;
-            }
-            catch (Exception)
-            {
-                response = Request.CreateResponse(HttpStatusCode.BadRequest, "Fallha ao tentar remover o livro");
-                throw;
-            }
 
-            return response;
+                try
+                {
+                    var deletarLivroAsync = Task.Run(() => _repository.Delete(id));
+                    response = Request.CreateResponse(HttpStatusCode.OK, "Livro removido com sucesso");
+                    await deletarLivroAsync;
+                }
+                catch (Exception)
+                {
+                    response = Request.CreateResponse(HttpStatusCode.BadRequest, "Fallha ao tentar remover o livro");
+                    throw;
+                }
+
+                return response;
+            }
         }
 
-      
 
         protected override void Dispose(bool disposing)
         {
-
             _repository.Dispose();
         }
+
     }
 }
