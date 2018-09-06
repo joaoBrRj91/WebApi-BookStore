@@ -30,7 +30,7 @@ namespace WebApi.Data.Repositories
         public Livro Get(int id) => _context.Livros.Find(id);
 
 
-        public IEnumerable<Livro> ObterLivrosComAutores(int skip, int take = 25)
+        public IEnumerable<Livro> ObterLivrosComAutores(int skip = 0, int take = 25)
         {
             return _context
                     .Livros

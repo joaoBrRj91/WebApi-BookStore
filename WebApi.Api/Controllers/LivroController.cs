@@ -6,6 +6,9 @@ using System.Net;
 using System.Text;
 using System;
 using BookStore.Utils.Attributes;
+using WebApi.OutputCache.V2;
+using System.Threading.Tasks;
+
 
 
 /*TODO: Refatorar,pois a camada de apresentação
@@ -43,10 +46,13 @@ namespace WebApi.Api.Controllers
         }
 
        
+        //O cache no lado do cliente fica no disco( "disco" da maquina fisica da requsição)
+        //O cache no lado do servidor fica armazenada no servidor/maquina fisca onde está a aplicação
         [Route("livros")]
         [HttpGet]
         [DeflateCompression]
-        public HttpResponseMessage Get()
+        [CacheOutput(ClientTimeSpan =100,ServerTimeSpan =100)]
+        public async Task<HttpResponseMessage> Get()
         {
             HttpResponseMessage response;
 
@@ -54,9 +60,11 @@ namespace WebApi.Api.Controllers
             {
                 try
                 {
+                    var livrosAsync =  Task.Run(() => _repository.ObterLivrosComAutores());
 
-                    var livros = _repository.Get();
-                    if (livros != null && livros.Count() > 0)
+                    var livros =  await livrosAsync;
+
+                    if (livros != null &&  livros.Count() > 0)
                         response = Request.CreateResponse(HttpStatusCode.OK, livros);
                     else
                         response = Request.CreateResponse(HttpStatusCode.NoContent, "nenhum registro encontrado");
