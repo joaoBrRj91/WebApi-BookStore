@@ -8,6 +8,7 @@ using System;
 using BookStore.Utils.Attributes;
 using WebApi.OutputCache.V2;
 using System.Threading.Tasks;
+using WebApi.Domain.Entities;
 
 
 
@@ -60,9 +61,9 @@ namespace WebApi.Api.Controllers
             {
                 try
                 {
-                    var livrosAsync =  Task.Run(() => _repository.ObterLivrosComAutores());
+                    var obterLivrosAsync =  Task.Run(() => _repository.ObterLivrosComAutores());
 
-                    var livros =  await livrosAsync;
+                    var livros =  await obterLivrosAsync;
 
                     if (livros != null &&  livros.Count() > 0)
                         response = Request.CreateResponse(HttpStatusCode.OK, livros);
@@ -82,6 +83,75 @@ namespace WebApi.Api.Controllers
 
             return response;
         }
+
+        [HttpPost]
+        [Route("livros")]
+        public async Task<HttpResponseMessage> Post(Livro livro)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+
+            try
+            {
+                var criarLivrosAsync = Task.Run(() =>  _repository.Create(livro));
+                response = Request.CreateResponse(HttpStatusCode.Created, livro);
+                await criarLivrosAsync;
+            }
+            catch
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest, "fallha ao criar o livro");
+                throw;
+            }
+
+            return response;
+        }
+
+
+
+        [HttpPut]
+        [Route("livros")]
+        public async Task<HttpResponseMessage> Put(Livro livro)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+
+            try
+            {
+                 var atualizarLivroAsync = Task.Run(() => _repository.Update(livro));
+                response = Request.CreateResponse(HttpStatusCode.OK, livro);
+                await atualizarLivroAsync;
+            }
+            catch (Exception)
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest, "Falha ao Atualizar o livro");
+                throw;
+            }
+
+            return response;
+        }
+
+      
+
+        [HttpDelete]
+        [Route("livros/{id}")]
+        public async Task<HttpResponseMessage> Delete(int id)
+        {
+            HttpResponseMessage response = new HttpResponseMessage();
+
+            try
+            {
+                var  deletarLivroAsync = Task.Run(() => _repository.Delete(id));
+                response = Request.CreateResponse(HttpStatusCode.OK, "Livro removido com sucesso");
+                await deletarLivroAsync;
+            }
+            catch (Exception)
+            {
+                response = Request.CreateResponse(HttpStatusCode.BadRequest, "Fallha ao tentar remover o livro");
+                throw;
+            }
+
+            return response;
+        }
+
+      
 
         protected override void Dispose(bool disposing)
         {
